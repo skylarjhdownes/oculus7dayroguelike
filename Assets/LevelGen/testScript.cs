@@ -8,7 +8,7 @@ public class testScript : MonoBehaviour {
 	// Use this for initialization
 	void Start() {
 		dungeonMap d = new dungeonMap (3, 2, 3);
-		hallways h = new hallways (wallTexture);
+		hallways h = new hallways (wallTexture,wallTexture,wallTexture);
 		room e = null;
 		d.map = new room[2,2,2] {{{h, e},{h, h}}, {{e, h},{h, h}}};
 		d.RenderAll ();

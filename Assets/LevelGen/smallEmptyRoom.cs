@@ -1,13 +1,13 @@
-using UnityEngine;
-using System.Collections.Generic;
+﻿using UnityEngine;
+using System.Collections;
 
-public class hallways : room {
+public class smallEmptyRoom : room {
 	private GameObject self = new GameObject("Hallways");
 	private Texture wallTexture;
 	private Texture floorTexture;
 	private Texture ceilingTexture;
 	
-	public hallways (Texture wallTexture, Texture ceilingTexture, Texture floorTexture) {
+	public smallEmptyRoom (Texture wallTexture, Texture ceilingTexture, Texture floorTexture) {
 		this.wallTexture = wallTexture;
 		this.ceilingTexture = ceilingTexture;
 		this.floorTexture = floorTexture;
@@ -61,22 +61,21 @@ public class hallways : room {
 		created.renderer.material.mainTexture = wallTexture;
 		return created.transform;
 	}
-	
+
 	private Transform newCeiling () {
 		GameObject created = GameObject.CreatePrimitive (PrimitiveType.Quad);
 		created.transform.parent = self.transform;
 		created.renderer.material.mainTexture = ceilingTexture;
 		return created.transform;
 	}
-	
+
 	private Transform newFloor () {
 		GameObject created = GameObject.CreatePrimitive (PrimitiveType.Quad);
 		created.transform.parent = self.transform;
 		created.renderer.material.mainTexture = floorTexture;
 		return created.transform;
 	}
-	
-	
+
 	public bool NeighborExists(int x, int y, int z,  dungeonMap d) {
 		// if out of bounds, no neighbor
 		if (x < 0 || y < 0 || z < 0 || d.map.GetLength (0) <= x || d.map.GetLength (1) <= y || d.map.GetLength (2) <= z) {
