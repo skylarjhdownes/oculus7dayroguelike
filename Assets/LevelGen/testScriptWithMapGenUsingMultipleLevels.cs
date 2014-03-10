@@ -8,88 +8,36 @@ public class testScriptWithMapGenUsingMultipleLevels : MonoBehaviour {
 
 	// Use this for initialization
 	void Start() {
-		Map p = MapGenerator.generateMapWithRectangularRoomsFirst (60, 60, .15, 251);
 
-		d = new dungeonMap (p.width, 5, p.height);
+		Map[] mList = new Map [5];
+
+		mList[0] = MapGenerator.generateMapWithRectangularRoomsFirst (60, 60, .15, 251);
+		mList[1] = MapGenerator.getMapWithRoomsFrom (mList[0]);
+		mList[2] = MapGenerator.getMapWithRoomsFrom (mList[0]);
+		mList[3] = MapGenerator.getMapWithRoomsFrom (mList[0]);
+		mList[4] = MapGenerator.getMapWithRoomsFrom (mList[0]);
+		MapGenerator.buildRandomCorridorsFromAllRoomsToOneRoom (mList[1], 1252);
+		MapGenerator.buildRandomCorridorsFromAllRoomsToOneRoom (mList[2], 9252);
+		MapGenerator.buildRandomCorridorsFromAllRoomsToOneRoom (mList[3], 90252);
+		MapGenerator.buildRandomCorridorsFromAllRoomsToOneRoom (mList[4], 9251);
+
+		d = new dungeonMap (mList[0].width, mList.Length, mList[0].height);
 		hallways h = hallways.prepare (d);
 
-		for (int i = 0; i < p.width; i++) {
-			for (int j = 0; j < p.height; j++) {
-				switch (p.MapGrid[i,j]) {
-				case 0:
-				case 2:
-					d.place (i,0,j, h);
-					break;
+		for (int k = 0; k < mList.Length; k++) {
+			for (int i = 0; i < mList[0].width; i++) {
+				for (int j = 0; j < mList[0].height; j++) {
+					switch (mList[k].MapGrid[i,j]) {
+					case 0:
+					case 2:
+						d.place (i,k,j, h);
+						break;
+					}
 				}
 			}
 		}
 
-		Map p2 = MapGenerator.getMapWithRoomsFrom (p);
-		MapGenerator.buildRandomCorridorsFromAllRoomsToOneRoom (p2, 252);
-		for (int i = 0; i < p.width; i++) {
-			for (int j = 0; j < p.height; j++) {
-				switch (p2.MapGrid[i,j]) {
-				case 0:
-				case 2:
-					d.place (i,1,j, h);
-					break;
-				}
-			}
-		}
 
-		Map p3 = MapGenerator.getMapWithRoomsFrom (p);
-		MapGenerator.buildRandomCorridorsFromAllRoomsToOneRoom (p3, 1252);
-		for (int i = 0; i < p.width; i++) {
-			for (int j = 0; j < p.height; j++) {
-				switch (p3.MapGrid[i,j]) {
-				case 0:
-				case 2:
-					d.place (i,2,j, h);
-					break;
-				}
-			}
-		}
-
-		/*
-		Map p4 = MapGenerator.getMapWithRoomsFrom (p);
-		MapGenerator.buildRandomCorridorsFromAllRoomsToOneRoom (p4, 10252);
-		for (int i = 0; i < p.width; i++) {
-			for (int j = 0; j < p.height; j++) {
-				switch (p4.MapGrid[i,j]) {
-				case 0:
-				case 2:
-					d.map[i,3,j] = h;
-					break;
-					
-				case 99:
-					d.map[i,3,j] = e;
-					break;
-					
-				}
-			}
-		}
-
-		Map p5 = MapGenerator.getMapWithRoomsFrom (p);
-		MapGenerator.buildRandomCorridorsFromAllRoomsToOneRoom (p5, 12529);
-		for (int i = 0; i < p.width; i++) {
-			for (int j = 0; j < p.height; j++) {
-				switch (p5.MapGrid[i,j]) {
-				case 0:
-				case 2:
-					d.map[i,4,j] = h;
-					break;
-					
-				case 99:
-					d.map[i,4,j] = e;
-					break;
-					
-				}
-			}
-		}
-		*/
-
-		
-		
 		d.RenderAll ();
 	}
 
