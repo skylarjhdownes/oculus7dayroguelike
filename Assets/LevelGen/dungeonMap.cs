@@ -29,11 +29,11 @@ public class dungeonMap {
 		return cube;
 	}
 
-	public void place(int x, int y, int z, room brush) {
+	public void place(int x, int y, int z, paintRoom brush) {
 		place (new Vector3 (x, y, z), new Vector3 (1, 1, 1), brush);
 	}
 
-	public void place(Vector3 position, Vector3 size, room brush) {
+	public void place(Vector3 position, Vector3 size, paintRoom brush) {
 				getPosition (position).Add (new renderRequest (size, brush));
 		}
 

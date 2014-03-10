@@ -3,9 +3,9 @@ using System.Collections;
 
 public class renderRequest {
 	private Vector3 size;
-	private room brush;
+	private paintRoom brush;
 	
-	public renderRequest(Vector3 size, room brush) {
+	public renderRequest(Vector3 size, paintRoom brush) {
 		this.size = size;
 		this.brush = brush;
 	}

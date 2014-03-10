@@ -11,7 +11,7 @@ public class testScriptWithMapGen : MonoBehaviour {
 		Map p = MapGenerator.generateMapWithRectangularRoomsFirst (60, 60, .15, 251);
 
 		d = new dungeonMap (p.width, 1, p.height);
-		hallways h = hallways.prepare (d);
+		hallwayBrush h = hallwayBrush.prepare (d);
 
 		for (int i = 0; i < p.width; i++) {
 			for (int j = 0; j < p.height; j++) {

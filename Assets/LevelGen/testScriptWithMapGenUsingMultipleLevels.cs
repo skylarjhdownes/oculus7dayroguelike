@@ -22,7 +22,7 @@ public class testScriptWithMapGenUsingMultipleLevels : MonoBehaviour {
 		MapGenerator.buildRandomCorridorsFromAllRoomsToOneRoom (mList[4], 9251);
 
 		d = new dungeonMap (mList[0].width, mList.Length, mList[0].height);
-		hallways h = hallways.prepare (d);
+		hallwayBrush h = hallwayBrush.prepare (d);
 
 		for (int k = 0; k < mList.Length; k++) {
 			for (int i = 0; i < mList[0].width; i++) {
