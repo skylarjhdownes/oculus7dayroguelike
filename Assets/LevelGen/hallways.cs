@@ -70,15 +70,9 @@ public class hallways : room {
 	
 	public bool NeighborExists(Vector3 position) {
 		// if out of bounds, no neighbor
-		if (position.x < 0
-		    || position.y < 0 
-		    || position.z < 0 
-		    || map.map.GetLength (0) <= position.x 
-		    || map.map.GetLength (1) <= position.y 
-		    || map.map.GetLength (2) <= position.z) {
+		if (!map.inBounds(position)) {
 			return false;
 		}
-		// if not null, neighbor
-		return map.getPosition(position) != null;
+		return map.getPosition(position).Count > 0;
 	}
 }

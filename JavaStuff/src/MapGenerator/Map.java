@@ -18,6 +18,8 @@ public class Map {
 		Rooms = new LinkedList<Rect>();
 		
 		for ( int i = 0; i<x; i++ ) {
+        
+        
 			for ( int j = 0; j<y; j++ ) {
 				MapGrid[i][j] = 99;
 			}

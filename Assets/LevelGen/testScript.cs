@@ -1,20 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-//[ExecuteInEditMode]
 public class testScript : MonoBehaviour {
 	private dungeonMap d;
 
 	// Use this for initialization
 	void Start() {
-		d = new dungeonMap (2, 2, 2);
-		room e = null;
-		hallways h = hallways.prepare (d);
-		generateRoomWithTerrain g = generateRoomWithTerrain.prepare (d);
-		d.map = new room[2,2,2] {{{h, e},{h, g}}, {{e, h},{h, h}}};
+		d = new dungeonMap (3, 2, 2);
+		room h = hallways.prepare (d);
+		room g = generateRoomWithTerrain.prepare (d);
+		d.place (0, 0, 1, h);
+		d.place (1, 0, 0, h);
+		d.place (1, 1, 0, h);
+		d.place (1, 1, 1, h);
+		d.place (0, 1, 0, h);
+		d.place (0, 1, 1, h);
 		d.RenderAll ();
 	}
-
 
 	// Update is called once per frame
 	void Update () {

@@ -7,7 +7,7 @@ public class MapGenerator {
 	
 	static Random r = new Random((long)(Math.random()*99999999));
 	static long seed = -1;
-
+    
 	public static Map generateMapWithRectangularRoomsFirst(int x, int y, double roomDensity, long seed) {
 		MapGenerator.seed = seed;
 		r = new Random(seed);
