@@ -9,7 +9,7 @@ public class hallways : room {
 	private dungeonMap map;
 
 	public static hallways prepare(dungeonMap map) {
-		GameObject levelGen = GameObject.Find ("LevelGeneration");
+		GameObject levelGen = GameObject.Find ("LevelGeneration"); //Is dumb, should fix
 		hallways hallwayObject = levelGen.GetComponent<hallways> ();
 		hallwayObject.map = map;
 		hallwayObject.self = new GameObject ("Hallways");
