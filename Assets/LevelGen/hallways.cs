@@ -2,87 +2,80 @@ using UnityEngine;
 using System.Collections.Generic;
 
 public class hallways : room {
-	private GameObject self = new GameObject("Hallways");
-	private Texture wallTexture;
-	private Texture floorTexture;
-	private Texture ceilingTexture;
-	
-	public hallways (Texture wallTexture, Texture ceilingTexture, Texture floorTexture) {
-		this.wallTexture = wallTexture;
-		this.ceilingTexture = ceilingTexture;
-		this.floorTexture = floorTexture;
+	private GameObject self;
+	public Texture wallTexture;
+	public Texture floorTexture;
+	public Texture ceilingTexture;
+	private dungeonMap map;
+
+	public static hallways prepare(dungeonMap map) {
+		GameObject levelGen = GameObject.Find ("LevelGeneration");
+		hallways hallwayObject = levelGen.GetComponent<hallways> ();
+		hallwayObject.map = map;
+		hallwayObject.self = new GameObject ("Hallways");
+		return hallwayObject;
 	}
 	
-	public void RenderRoom(int x, int y, int z, dungeonMap d) {
+	public override void RenderRoom(Vector3 roomPosition, Vector3 roomSize) {
 		Transform wallPos;
 		
 		UnityEngine.Debug.Log ("Texture is " + wallTexture);
 		
 		// floor
-		if (!NeighborExists(x,y-1,z,d)) {
-			wallPos = newFloor();
+		if (!NeighborExists(roomPosition + new Vector3 (0, -1, 0))) {
+			wallPos = newPlane(floorTexture);
 			wallPos.Rotate(90,0,0);
-			wallPos.position = new Vector3 (x, y-0.5f, z);
+			wallPos.position = roomPosition + new Vector3 (0, -0.5f, 0);
 		}
 		
 		// ceiling
-		if (!NeighborExists(x,y+1,z,d)) {
-			wallPos = newCeiling();
+		if (!NeighborExists(roomPosition + new Vector3 (0, 1, 0))) {
+			wallPos = newPlane(ceilingTexture);
 			wallPos.Rotate(-90,0,0);
-			wallPos.position = new Vector3 (x, y+0.5f, z);
+			wallPos.position = roomPosition + new Vector3 (0, 0.5f, 0);
 		}
 		
 		// walls
-		if (!NeighborExists(x-1,y,z,d)) {
-			wallPos = newWall ();
+		if (!NeighborExists(roomPosition + new Vector3 (-1, 0, 0))) {
+			wallPos = newPlane (wallTexture);
 			wallPos.Rotate(0,-90,0);
-			wallPos.position = new Vector3 (x-0.5f, y, z);
+			wallPos.position = roomPosition + new Vector3 (-0.5f, 0, 0);
 		}
-		if (!NeighborExists(x+1,y,z,d)) {
-			wallPos = newWall ();
+		if (!NeighborExists(roomPosition + new Vector3 (1, 0, 0))) {
+			wallPos = newPlane (wallTexture);
 			wallPos.Rotate(0,90,0);
-			wallPos.position = new Vector3 (x+0.5f, y, z);
+			wallPos.position = roomPosition + new Vector3 (0.5f, 0, 0);
 		}
-		if (!NeighborExists(x,y,z-1,d)) {
-			wallPos = newWall ();
+		if (!NeighborExists(roomPosition + new Vector3 (0, 0, -1))) {
+			wallPos = newPlane (wallTexture);
 			wallPos.Rotate(0,180,0);
-			wallPos.position = new Vector3 (x, y, z-0.5f);
+			wallPos.position = roomPosition + new Vector3 (0, 0, -0.5f);
 		}
-		if (!NeighborExists(x,y,z+1,d)) {
-			wallPos = newWall ();
+		if (!NeighborExists(roomPosition + new Vector3 (0, 0, 1))) {
+			wallPos = newPlane (wallTexture);
 			wallPos.Rotate(0,0,0);
-			wallPos.position = new Vector3 (x, y, z+0.5f);
+			wallPos.position = roomPosition + new Vector3 (0, 0, 0.5f);
 		}
 	}
 	
-	private Transform newWall () {
+	private Transform newPlane (Texture texture) {
 		GameObject created = GameObject.CreatePrimitive (PrimitiveType.Quad);
 		created.transform.parent = self.transform;
-		created.renderer.material.mainTexture = wallTexture;
+		created.renderer.material.mainTexture = texture;
 		return created.transform;
 	}
 	
-	private Transform newCeiling () {
-		GameObject created = GameObject.CreatePrimitive (PrimitiveType.Quad);
-		created.transform.parent = self.transform;
-		created.renderer.material.mainTexture = ceilingTexture;
-		return created.transform;
-	}
-	
-	private Transform newFloor () {
-		GameObject created = GameObject.CreatePrimitive (PrimitiveType.Quad);
-		created.transform.parent = self.transform;
-		created.renderer.material.mainTexture = floorTexture;
-		return created.transform;
-	}
-	
-	
-	public bool NeighborExists(int x, int y, int z,  dungeonMap d) {
+	public bool NeighborExists(Vector3 position) {
 		// if out of bounds, no neighbor
-		if (x < 0 || y < 0 || z < 0 || d.map.GetLength (0) <= x || d.map.GetLength (1) <= y || d.map.GetLength (2) <= z) {
+		if (position.x < 0
+		    || position.y < 0 
+		    || position.z < 0 
+		    || map.map.GetLength (0) <= position.x 
+		    || map.map.GetLength (1) <= position.y 
+		    || map.map.GetLength (2) <= position.z) {
 			return false;
 		}
 		// if not null, neighbor
-		return d.map [x, y, z] != null;
+		return map.getPosition(position) != null;
 	}
 }

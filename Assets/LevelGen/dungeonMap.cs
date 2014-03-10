@@ -13,10 +13,13 @@ public class dungeonMap {
 			for (int y = 0; y < map.GetLength (1); y++) {
 				for (int z = 0; z < map.GetLength (2); z++) {
 					if (map[x,y,z] != null) {
-						map[x,y,z].RenderRoom(x,y,z,this);
+						map[x,y,z].RenderRoom(new Vector3 (x,y,z), new Vector3 (1,1,1));
 					}
 				}
 			}
 		}
+	}
+	public room getPosition(Vector3 position){
+		return map [(int)position.x, (int)position.y, (int)position.z];
 	}
 }
