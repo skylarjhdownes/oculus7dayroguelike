@@ -12,6 +12,9 @@ public class generateRoomWithTerrain : room {
 	public static generateRoomWithTerrain prepare(dungeonMap map) {
 		GameObject levelGen = GameObject.Find ("LevelGeneration");  //Is dumb, should fix
 		generateRoomWithTerrain terrainRoomObject = levelGen.GetComponent<generateRoomWithTerrain> ();
+		if (terrainRoomObject == null) {
+			UnityEngine.Debug.Log("Please attach the generateRoomWithTerrain object to your LevelGeneration object.");
+		}
 		terrainRoomObject.map = map;
 		terrainRoomObject.self = new GameObject ("terrainRoom");
 		return terrainRoomObject;
@@ -22,6 +25,7 @@ public class generateRoomWithTerrain : room {
 		GameObject ceiling = GameObject.CreatePrimitive(PrimitiveType.Plane);
 		terrain.transform.position = roomPosition;
 		terrain.transform.localScale = roomSize;
+		terrain.AddComponent ("TerrainToolkit");
 		ceiling.transform.position = (roomPosition + new Vector3(0,5,0));
 		ceiling.transform.Rotate(180,0,0);
 		ceiling.transform.localScale = roomSize;

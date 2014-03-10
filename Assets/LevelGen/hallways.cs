@@ -11,6 +11,9 @@ public class hallways : room {
 	public static hallways prepare(dungeonMap map) {
 		GameObject levelGen = GameObject.Find ("LevelGeneration"); //Is dumb, should fix
 		hallways hallwayObject = levelGen.GetComponent<hallways> ();
+		if (hallwayObject == null) {
+			UnityEngine.Debug.Log("Please attach the hallways object to your LevelGeneration object.");
+		}
 		hallwayObject.map = map;
 		hallwayObject.self = new GameObject ("Hallways");
 		return hallwayObject;

@@ -7,11 +7,11 @@ public class testScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start() {
-		d = new dungeonMap (1000, 2, 2);
+		d = new dungeonMap (2, 2, 2);
 		room e = null;
 		hallways h = hallways.prepare (d);
 		generateRoomWithTerrain g = generateRoomWithTerrain.prepare (d);
-		d.map = new room[3,2,2] {{{h, e},{h, h}}, {{e, h},{h, h}}, {{e, h},{h, g}}};
+		d.map = new room[2,2,2] {{{h, e},{h, g}}, {{e, h},{h, h}}};
 		d.RenderAll ();
 	}
 
