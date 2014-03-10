@@ -151,28 +151,33 @@ public class MapGenerator {
 		double distance;
 		boolean continueFlag;
 		for ( Rect n : nMap.Rooms ) {
-			rCount = nMap.Rooms.size();
-			continueFlag = false;
-			
+			mpX1 = (int)(((n.finX-n.startX)/2.0)+n.startX);
+			mpY1 = (int)(((n.finY-n.startY)/2.0)+n.startY);
+
+			// Make a list of rooms within the proper distance of this one.
+			LinkedList<Rect> closeRooms = new LinkedList<Rect>();
 			for ( Rect n2 : nMap.Rooms ) {
-				if ( continueFlag ) continue;
-				
-				// Find the mid points of both rectangles
-				mpX1 = (int)(((n.finX-n.startX)/2.0)+n.startX);
-				mpY1 = (int)(((n.finY-n.startY)/2.0)+n.startY);
 				mpX2 = (int)(((n2.finX-n2.startX)/2.0)+n2.startX);
 				mpY2 = (int)(((n2.finY-n2.startY)/2.0)+n2.startY);
 				distance = Math.sqrt(((mpY1-mpY2)*(mpY1-mpY2))+((mpX1-mpX2)*(mpX1-mpX2)));
+
+				if ( distance < 45 ) closeRooms.add(n2);
+			}
+			rCount = closeRooms.size();
+			continueFlag = false;
+			
+			for ( Rect n2 : closeRooms ) {
+				if ( continueFlag ) continue;
+				
+				// Find the mid points of both rectangles
 
 				if ( r.nextInt(rCount) != 0 ) {
 					rCount--;
 					continue;
 				}
-				if ( distance >= 45 ) {
-					rCount--;
-					continue;
-				}
 				continueFlag = true;
+				mpX2 = (int)(((n2.finX-n2.startX)/2.0)+n2.startX);
+				mpY2 = (int)(((n2.finY-n2.startY)/2.0)+n2.startY);
 				
 				
 				if ( !n.equals(n2) ) {
