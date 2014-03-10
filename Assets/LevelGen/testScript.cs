@@ -10,7 +10,8 @@ public class testScript : MonoBehaviour {
 		d = new dungeonMap (1000, 2, 2);
 		room e = null;
 		hallways h = hallways.prepare (d);
-		d.map = new room[3,2,2] {{{h, e},{h, h}}, {{e, h},{h, h}}, {{e, h},{h, h}}};
+		generateRoomWithTerrain g = generateRoomWithTerrain.prepare (d);
+		d.map = new room[3,2,2] {{{h, e},{h, h}}, {{e, h},{h, h}}, {{e, h},{h, g}}};
 		d.RenderAll ();
 	}
 

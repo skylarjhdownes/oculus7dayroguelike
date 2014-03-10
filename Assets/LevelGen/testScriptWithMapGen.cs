@@ -3,7 +3,6 @@ using UnityEngine;
 using System.Collections;
 using MyNameSpace;
 
-[ExecuteInEditMode]
 public class testScriptWithMapGen : MonoBehaviour {
 	private dungeonMap d;
 
