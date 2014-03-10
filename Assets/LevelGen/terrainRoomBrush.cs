@@ -3,9 +3,9 @@ using System.Collections;
 
 public class terrainRoomBrush : paintRoom {
 	private GameObject self;
-	public Texture wallTexture;
-	public Texture floorTexture;
-	public Texture ceilingTexture;
+	public Material wallMaterial;
+	public Material floorMaterial;
+	public Material ceilingMaterial;
 	private dungeonMap map;
 
 

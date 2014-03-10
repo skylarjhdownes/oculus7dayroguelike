@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 public class hallwayBrush : paintRoom {
 	private GameObject self;
-	public Texture wallTexture;
-	public Texture floorTexture;
-	public Texture ceilingTexture;
+	public Material wallMaterial;
+	public Material floorMaterial;
+	public Material ceilingMaterial;
 	private dungeonMap map;
 
 	public static hallwayBrush prepare(dungeonMap map) {
@@ -22,49 +22,49 @@ public class hallwayBrush : paintRoom {
 	public override void RenderRoom(Vector3 roomPosition, Vector3 roomSize) {
 		Transform wallPos;
 		
-		UnityEngine.Debug.Log ("Texture is " + wallTexture);
+		UnityEngine.Debug.Log ("Texture is " + wallMaterial);
 		
 		// floor
 		if (!NeighborExists(roomPosition + new Vector3 (0, -1, 0))) {
-			wallPos = newPlane(floorTexture);
+			wallPos = newPlane(floorMaterial);
 			wallPos.Rotate(90,0,0);
 			wallPos.position = roomPosition + new Vector3 (0, -0.5f, 0);
 		}
 		
 		// ceiling
 		if (!NeighborExists(roomPosition + new Vector3 (0, 1, 0))) {
-			wallPos = newPlane(ceilingTexture);
+			wallPos = newPlane(ceilingMaterial);
 			wallPos.Rotate(-90,0,0);
 			wallPos.position = roomPosition + new Vector3 (0, 0.5f, 0);
 		}
 		
 		// walls
 		if (!NeighborExists(roomPosition + new Vector3 (-1, 0, 0))) {
-			wallPos = newPlane (wallTexture);
+			wallPos = newPlane (wallMaterial);
 			wallPos.Rotate(0,-90,0);
 			wallPos.position = roomPosition + new Vector3 (-0.5f, 0, 0);
 		}
 		if (!NeighborExists(roomPosition + new Vector3 (1, 0, 0))) {
-			wallPos = newPlane (wallTexture);
+			wallPos = newPlane (wallMaterial);
 			wallPos.Rotate(0,90,0);
 			wallPos.position = roomPosition + new Vector3 (0.5f, 0, 0);
 		}
 		if (!NeighborExists(roomPosition + new Vector3 (0, 0, -1))) {
-			wallPos = newPlane (wallTexture);
+			wallPos = newPlane (wallMaterial);
 			wallPos.Rotate(0,180,0);
 			wallPos.position = roomPosition + new Vector3 (0, 0, -0.5f);
 		}
 		if (!NeighborExists(roomPosition + new Vector3 (0, 0, 1))) {
-			wallPos = newPlane (wallTexture);
+			wallPos = newPlane (wallMaterial);
 			wallPos.Rotate(0,0,0);
 			wallPos.position = roomPosition + new Vector3 (0, 0, 0.5f);
 		}
 	}
 	
-	private Transform newPlane (Texture texture) {
+	private Transform newPlane (Material surfaceMaterial) {
 		GameObject created = GameObject.CreatePrimitive (PrimitiveType.Quad);
 		created.transform.parent = self.transform;
-		created.renderer.material.mainTexture = texture;
+		created.renderer.material =  surfaceMaterial;
 		return created.transform;
 	}
 	
