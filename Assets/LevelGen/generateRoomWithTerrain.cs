@@ -26,6 +26,7 @@ public class generateRoomWithTerrain : room {
 		terrain.transform.position = roomPosition;
 		terrain.transform.localScale = roomSize;
 		terrain.AddComponent ("TerrainToolkit");
+
 		ceiling.transform.position = (roomPosition + new Vector3(0,5,0));
 		ceiling.transform.Rotate(180,0,0);
 		ceiling.transform.localScale = roomSize;
