@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public abstract class room : MonoBehaviour {
+public abstract class paintRoom : MonoBehaviour {
 	abstract public void RenderRoom(Vector3 position, Vector3 size);
 
 	// Children ought to have a public static method called "prepare(dungeonMap map)"  

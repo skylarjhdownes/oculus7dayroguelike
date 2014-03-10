@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class generateRoomWithTerrain : room {
+public class terrainRoomBrush : paintRoom {
 	private GameObject self;
 	public Texture wallTexture;
 	public Texture floorTexture;
@@ -9,9 +9,9 @@ public class generateRoomWithTerrain : room {
 	private dungeonMap map;
 
 
-	public static generateRoomWithTerrain prepare(dungeonMap map) {
+	public static terrainRoomBrush prepare(dungeonMap map) {
 		GameObject levelGen = GameObject.Find ("LevelGeneration");  //Is dumb, should fix
-		generateRoomWithTerrain terrainRoomObject = levelGen.GetComponent<generateRoomWithTerrain> ();
+		terrainRoomBrush terrainRoomObject = levelGen.GetComponent<terrainRoomBrush> ();
 		if (terrainRoomObject == null) {
 			UnityEngine.Debug.Log("Please attach the generateRoomWithTerrain object to your LevelGeneration object.");
 		}

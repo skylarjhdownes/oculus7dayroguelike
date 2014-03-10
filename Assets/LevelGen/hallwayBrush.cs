@@ -1,16 +1,16 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class hallways : room {
+public class hallwayBrush : paintRoom {
 	private GameObject self;
 	public Texture wallTexture;
 	public Texture floorTexture;
 	public Texture ceilingTexture;
 	private dungeonMap map;
 
-	public static hallways prepare(dungeonMap map) {
+	public static hallwayBrush prepare(dungeonMap map) {
 		GameObject levelGen = GameObject.Find ("LevelGeneration"); //Is dumb, should fix
-		hallways hallwayObject = levelGen.GetComponent<hallways> ();
+		hallwayBrush hallwayObject = levelGen.GetComponent<hallwayBrush> ();
 		if (hallwayObject == null) {
 			UnityEngine.Debug.Log("Please attach the hallways object to your LevelGeneration object.");
 		}
