@@ -8,7 +8,7 @@ public class testScriptWithMapGen : MonoBehaviour {
 
 	// Use this for initialization
 	void Start() {
-		Map p = MapGenerator.generateMapWithRectangularRoomsFirst (60, 60, .15, 251);
+		Map p = null; //MapGenerator.generateMapWithRectangularRoomsFirst (60, 60, .15, 251);
 
 		d = new dungeonMap (p.width, 1, p.height);
 		hallwayBrush h = hallwayBrush.prepare (d);

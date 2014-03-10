@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace MyNameSpace {
+namespace OLDMyNameSpace {
 
 	public class TestMapGen : MonoBehaviour {
 		
