@@ -7,8 +7,8 @@ public class testScript : MonoBehaviour {
 	// Use this for initialization
 	void Start() {
 		d = new dungeonMap (3, 2, 2);
-		paintRoom h = hallwayBrush.prepare (d);
-		paintRoom g = terrainRoomBrush.prepare (d);
+		brush h = hallwayBrush.prepare (d);
+		brush g = terrainRoomBrush.prepare (d);
 		d.place (0, 0, 1, h);
 		d.place (1, 0, 0, h);
 		d.place (1, 1, 0, h);

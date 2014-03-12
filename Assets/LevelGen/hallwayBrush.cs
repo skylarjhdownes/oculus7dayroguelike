@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class hallwayBrush : paintRoom {
+public class hallwayBrush : brush {
 	private GameObject self;
 	public Material wallMaterial;
 	public Material floorMaterial;
@@ -12,10 +12,10 @@ public class hallwayBrush : paintRoom {
 		GameObject levelGen = GameObject.Find ("LevelGeneration"); //Is dumb, should fix
 		hallwayBrush hallwayObject = levelGen.GetComponent<hallwayBrush> ();
 		if (hallwayObject == null) {
-			UnityEngine.Debug.Log("Please attach the hallways object to your LevelGeneration object.");
+			UnityEngine.Debug.Log("Please attach the hallwayBrush script to your LevelGeneration object.");
 		}
 		hallwayObject.map = map;
-		hallwayObject.self = new GameObject ("Hallways");
+		hallwayObject.self = new GameObject ("hallwayBrush");
 		return hallwayObject;
 	}
 	
@@ -23,17 +23,18 @@ public class hallwayBrush : paintRoom {
 		Transform wallPos;
 		
 		UnityEngine.Debug.Log ("Texture is " + wallMaterial);
-		
+
+
 		// floor
 		if (!NeighborExists(roomPosition + new Vector3 (0, -1, 0))) {
-			wallPos = newPlane(floorMaterial);
+			wallPos = newPlane (floorMaterial);
 			wallPos.Rotate(90,0,0);
 			wallPos.position = roomPosition + new Vector3 (0, -0.5f, 0);
 		}
 		
 		// ceiling
 		if (!NeighborExists(roomPosition + new Vector3 (0, 1, 0))) {
-			wallPos = newPlane(ceilingMaterial);
+			wallPos = newPlane (ceilingMaterial);
 			wallPos.Rotate(-90,0,0);
 			wallPos.position = roomPosition + new Vector3 (0, 0.5f, 0);
 		}

@@ -1,11 +1,11 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class renderRequest {
 	private Vector3 size;
-	private paintRoom brush;
+	private brush brush;
 	
-	public renderRequest(Vector3 size, paintRoom brush) {
+	public renderRequest(Vector3 size, brush brush) {
 		this.size = size;
 		this.brush = brush;
 	}
