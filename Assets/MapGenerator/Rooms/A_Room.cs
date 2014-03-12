@@ -28,7 +28,7 @@ namespace MyNameSpace
 			level = l;
 		}
 
-		private void build() {
+		protected virtual void build() {
 			int sX, sY, fX, fY;
 			for (int i = 0; i < numRectangles; i++) {
 				// Build a rectangle

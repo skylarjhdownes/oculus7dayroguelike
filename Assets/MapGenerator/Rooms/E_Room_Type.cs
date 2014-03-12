@@ -3,7 +3,9 @@ namespace MyNameSpace
 {
 	public enum Room_Type
 	{
-		SmallRoom,MediumRoom
+		SpawnRoom,
+		SmallRoom,
+		MediumRoom
 	}
 }
 
