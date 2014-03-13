@@ -9,12 +9,13 @@ public class testScript : MonoBehaviour {
 		d = new dungeonMap (3, 2, 2);
 		brush h = hallwayBrush.prepare (d);
 		brush g = terrainRoomBrush.prepare (d);
+		brush t = hallwayTorchesBothWallsBrush.prepare (d);
 		d.place (0, 0, 1, h);
 		d.place (1, 0, 0, h);
 		d.place (1, 1, 0, h);
 		d.place (1, 1, 1, h);
 		d.place (0, 1, 0, h);
-		d.place (0, 1, 1, h);
+		d.place (0, 1, 1, t);
 		d.RenderAll ();
 	}
 
