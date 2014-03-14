@@ -1,0 +1,23 @@
+﻿Random Meta Crap
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# rebase in progress; onto 6e4e367
+# You are currently rebasing branch 'master' on '6e4e367'.
+#   (all conflicts fixed: run "git rebase --continue")
+#
+# Changes to be committed:
+#   (use "git reset HEAD <file>..." to unstage)
+#
+#	modified:   Assets/LevelGen/testScriptWithMapGen.cs
+#	modified:   Assets/MapGenerator/Map.cs
+#	modified:   Assets/MapGenerator/MapGenerator.cs
+#	new file:   Assets/MapGenerator/OldMapGenerator/Map.cs
+#	renamed:    Assets/MapGenerator/MapGenerator.cs -> Assets/MapGenerator/OldMapGenerator/MapGenerator.cs
+#	renamed:    Assets/MapGenerator/TestMapGen.cs -> Assets/MapGenerator/OldMapGenerator/TestMapGen.cs
+#	new file:   Assets/MapGenerator/Rooms/A_Room.cs
+#	new file:   Assets/MapGenerator/Rooms/E_Room_Type.cs
+#	new file:   Assets/MapGenerator/Rooms/MediumRoom.cs
+#	new file:   Assets/MapGenerator/Rooms/SmallRoom.cs
+#	deleted:    Assets/MapGenerator/TestMapGen.cs.meta
+#
+
