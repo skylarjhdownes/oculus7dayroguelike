@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class userInteractionScript : MonoBehaviour {
-
+public abstract class userInteractionScript : MonoBehaviour {
+	private bool moving = false;
+	private int distanceToMove = 10;
 	public void userInteraction() {
-		this.gameObject.renderer.material.SetColor("_Color", Color.cyan);
+		moving = true;
+		this.gameObject.transform.renderer.material.SetColor("_Color", Color.cyan);
+		
 	}
 	// Use this for initialization
 	void Start () {
@@ -12,5 +15,9 @@ public class userInteractionScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if (moving == true && distanceToMove > 0) {
+			distanceToMove--;
+			this.gameObject.transform.Translate(0, Time.deltaTime * 1, 0);
+		}
 	}
 }

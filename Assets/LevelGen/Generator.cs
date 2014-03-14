@@ -30,6 +30,7 @@ public class Generator : MonoBehaviour {
 		brushes.Add(factory.createRoomBrush (rng));
 		brushes.Add(factory.createRoomBrush (rng));
 		brushes.Add(factory.createRoomBrush (rng));
+		var hallwayTorches = new hallwayTorchesBothWallsBrush();
 
 		for (int i = 0; i < p.width; i++) {
 			for (int j = 0; j < p.height; j++) {
@@ -37,6 +38,10 @@ public class Generator : MonoBehaviour {
 				case 0:
 				case 2:
 					d.Place (new Position(i,0,j), brushes[rng.Next(brushes.Count)]);
+					if (rng.Next(20) == 0)
+						{
+							d.Place (new Position(i,0,j), hallwayTorches);
+						}
 					break;
 				}
 			}
