@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using MyNameSpace;
 
 namespace LevelGen {
-public class Generator : MonoBehaviour {
+public class GeneratorM : MonoBehaviour {
 	private Dungeon d;
 	public int seed = 10;
 
@@ -12,7 +12,6 @@ public class Generator : MonoBehaviour {
 	void Start() {
 
 		Map p = new Map (1000, 1000, 102);
-		var rng = new System.Random (seed);
 
 		p.AddRoom (Room_Type.SpawnRoom, 0);
 		p.AddRoom (Room_Type.SmallRoom, 1);
@@ -25,12 +24,6 @@ public class Generator : MonoBehaviour {
 		p.buildMap ();
 
 		d = new Dungeon ();
-		var factory = new RoomBrushFactory ();
-		var brushes = new List<Brush> ();
-		brushes.Add(factory.createRoomBrush (rng));
-		brushes.Add(factory.createRoomBrush (rng));
-		brushes.Add(factory.createRoomBrush (rng));
-		brushes.Add(factory.createRoomBrush (rng));
 		var hallwayTorches = new hallwayTorchesBothWallsBrush();
 
 		for (int i = 0; i < p.width; i++) {
@@ -39,11 +32,7 @@ public class Generator : MonoBehaviour {
 				case 0:
 				case 2:
 					//d.place (i,0,j, h);
-					d.Place (new Position(i,0,j), brushes[rng.Next(brushes.Count)]);
-					if (rng.Next(20) == 0)
-						{
-							d.Place (new Position(i,0,j), hallwayTorches);
-						}
+					d.Place (new Position(i,0,j), hallwayTorches);
 					break;
 				}
 			}

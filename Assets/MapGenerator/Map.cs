@@ -53,6 +53,8 @@ namespace MyNameSpace {
 
 		public void buildMap() {
 
+			//Rooms.Sort ();
+
 			/* Room Placement Method #1
 			// Build a queue of points on the grid.  This queue will be searched through to find locations to build rooms.
 			Queue Q = new Queue();
@@ -171,9 +173,15 @@ namespace MyNameSpace {
 			Point ret = null;
 
 			Point start = inner_Room.ActualLocation;
-			int radius = inner_Room.getMaxWidth ()+outer_Room.getMaxWidth ()+4;
+
+			int lSqOuter = outer_Room.getMaxWidth();
+			if ( outer_Room.getMaxLength() > lSqOuter ) lSqOuter = outer_Room.getMaxLength();
+			int lSqInner = inner_Room.getMaxWidth();
+			if ( inner_Room.getMaxLength() > lSqInner ) lSqInner = inner_Room.getMaxLength();
+
+			int radius = (lSqInner+2)+(lSqOuter+2)+1;
 			//start = new Point (start.x +inner_Room.getMaxWidth ()+1, start.y + inner_Room.getMaxWidth ()+1);
-			start = new Point (start.x-outer_Room.getMaxWidth()-1, start.y-outer_Room.getMaxWidth()-1);
+			start = new Point (start.x-lSqOuter-1, start.y-lSqOuter-1);
 
 			int randomPoint = r.Next (radius * 4);
 
