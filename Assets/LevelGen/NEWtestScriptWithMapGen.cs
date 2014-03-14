@@ -8,15 +8,15 @@ public class NEWtestScriptWithMapGen : MonoBehaviour {
 
 	// Use this for initialization
 	void Start() {
-		Map p = new Map (1000, 1000, 101);
+		Map p = new Map (1000, 1000, 102);
 
 		p.AddRoom (Room_Type.SpawnRoom, 0);
 		p.AddRoom (Room_Type.SmallRoom, 1);
-		p.AddRoom (Room_Type.MediumRoom, 2);
+		p.AddRoom (Room_Type.LargeRoom, 2);
 		p.AddRoom (Room_Type.SmallRoom, 3);
 		p.AddRoom (Room_Type.SmallRoom, 3);
+		p.AddRoom (Room_Type.MediumRoom, 3);
 		p.AddRoom (Room_Type.SmallRoom, 4);
-		p.AddRoom (Room_Type.MediumRoom, 4);
 
 		p.buildMap ();
 
@@ -28,6 +28,7 @@ public class NEWtestScriptWithMapGen : MonoBehaviour {
 				switch (p.MapGrid[i,j]) {
 				case 0:
 				case 2:
+				//case 98:
 					d.place (i,0,j, h);
 					break;
 				}
