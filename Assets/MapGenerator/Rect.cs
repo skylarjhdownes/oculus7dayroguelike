@@ -25,6 +25,24 @@ namespace MyNameSpace {
 		public string toString() {
 			return "["+startX+","+startY+"] -> ["+finX+","+finY+"]";
 		}
+
+		public bool intersects(Rect r_in) {
+			Point L1p1, L1p2,L2p1,L2p2;
+
+			// Check Line #1
+			L1p1 = new Point(startX,startY);
+			L1p2 = new Point(finX,startY);
+			L2p1 = new Point(r_in.startX,r_in.startY);
+			L2p2 = new Point(r_in.startX,r_in.finY);
+
+			if ( r_in.startY <= startY && startY <= r_in.finY && startX <= r_in.startX && r_in.startX <= finX ) return true;
+			if ( r_in.startY <= startY && startY <= r_in.finY && startX <= r_in.finX && r_in.finX <= finX ) return true;
+			if ( r_in.startY <= finY && finY <= r_in.finY && startX <= r_in.startX && r_in.startX <= finX ) return true;
+			if ( r_in.startY <= finY && finY <= r_in.finY && startX <= r_in.finX && r_in.finX <= finX ) return true;
+
+
+			return false;
+		}
 	}
 
 }

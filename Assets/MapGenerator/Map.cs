@@ -53,7 +53,7 @@ namespace MyNameSpace {
 
 		public void buildMap() {
 
-			//Rooms.Sort ();
+			Rooms.Sort ();
 
 			/* Room Placement Method #1
 			// Build a queue of points on the grid.  This queue will be searched through to find locations to build rooms.
@@ -120,6 +120,9 @@ namespace MyNameSpace {
 					// Next, select a random location on the square radius to place this room on the map.
 					current = getRandomPointOnTheSquareRadiusFor(n,myLinkedRoom);
 
+					//UnityEngine.Debug.Log("Trying > "+current.x+","+current.y);
+
+
 					// Expand from this point, to see if this room can fit at this point.
 					found = true;
 					for ( int i = current.x; i <= current.x+n.getMaxWidth()+2; i++ ) { 
@@ -154,7 +157,7 @@ namespace MyNameSpace {
 					buildHallway(n,myLinkedRoom);
 
 					/* Print Square Radius
-					for ( int i = 0; i < 200; i++ ) {
+					for ( int i = 0; i < 350; i++ ) {
 						Point p = getRandomPointOnTheSquareRadiusFor(n,myLinkedRoom);
 						MapGrid[p.x,p.y] = 0;
 					}
@@ -179,9 +182,11 @@ namespace MyNameSpace {
 			int lSqInner = inner_Room.getMaxWidth();
 			if ( inner_Room.getMaxLength() > lSqInner ) lSqInner = inner_Room.getMaxLength();
 
-			int radius = (lSqInner+2)+(lSqOuter+2)+1;
+			int radius = (lSqInner+2)+(lSqOuter+2)+4;
 			//start = new Point (start.x +inner_Room.getMaxWidth ()+1, start.y + inner_Room.getMaxWidth ()+1);
-			start = new Point (start.x-lSqOuter-1, start.y-lSqOuter-1);
+			start = new Point (start.x-lSqOuter-4, start.y-lSqOuter-4);
+
+			//UnityEngine.Debug.Log("Start: "+start.x+","+start.y);
 
 			int randomPoint = r.Next (radius * 4);
 
@@ -250,7 +255,7 @@ namespace MyNameSpace {
 					else { 
 						if ( !stillInRoom ) { reEnteredRoom = true; } 
 					}
-					UnityEngine.Debug.Log ("["+i+","+cY+"]  ->   sIR: "+stillInRoom+"    eC: "+emptyCheck);
+					//UnityEngine.Debug.Log ("["+i+","+cY+"]  ->   sIR: "+stillInRoom+"    eC: "+emptyCheck);
 				}
 			}
 			else {
@@ -262,7 +267,7 @@ namespace MyNameSpace {
 					else { 
 						if ( !stillInRoom ) { reEnteredRoom = true; } 
 					}
-					UnityEngine.Debug.Log ("["+i+","+cY+"]  ->   sIR: "+stillInRoom+"    eC: "+emptyCheck);
+					//UnityEngine.Debug.Log ("["+i+","+cY+"]  ->   sIR: "+stillInRoom+"    eC: "+emptyCheck);
 				}
 			}
 			
@@ -277,7 +282,7 @@ namespace MyNameSpace {
 					else { 
 						if ( !stillInRoom ) { reEnteredRoom = true; } 
 					}
-					UnityEngine.Debug.Log ("["+cX+","+i+"]  ->   sIR: "+stillInRoom+"    eC: "+emptyCheck);
+					//UnityEngine.Debug.Log ("["+cX+","+i+"]  ->   sIR: "+stillInRoom+"    eC: "+emptyCheck);
 				}
 			}
 			else {
@@ -289,7 +294,7 @@ namespace MyNameSpace {
 					else { 
 						if ( !stillInRoom ) { reEnteredRoom = true; } 
 					}
-					UnityEngine.Debug.Log ("["+cX+","+i+"]  ->   sIR: "+stillInRoom+"    eC: "+emptyCheck);
+					//UnityEngine.Debug.Log ("["+cX+","+i+"]  ->   sIR: "+stillInRoom+"    eC: "+emptyCheck);
 				}
 			}
 			//emptyCheck = false;

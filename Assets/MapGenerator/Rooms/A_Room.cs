@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace MyNameSpace
 {
-	public abstract class Room
+	public abstract class Room : IComparable<Room>
 	{
 		int height;
 		int maxWidth;
@@ -24,6 +24,11 @@ namespace MyNameSpace
 			build ();
 		}
 
+		public int CompareTo(Room c_in) {
+			if ( level > c_in.level ) return 1;
+			else return -1;
+		}
+
 		public void setLevel(int l) {
 			level = l;
 		}
@@ -37,7 +42,20 @@ namespace MyNameSpace
 				do { fX = r.Next (maxWidth); } while(fX-sX < 3);
 				do { fY = r.Next (maxLength); } while(fY-sY < 3);
 
-				listOfRectangles.Add (new Rect(sX,sY, fX, fY));
+				Rect tempRect = new Rect(sX,sY, fX, fY);
+
+				if ( listOfRectangles.Count > 0 ){
+					bool connected = false;
+					foreach( Rect n in listOfRectangles ) {
+						// Check to make sure this rectangle intersects at least one other rectangle.
+						connected = ( connected || tempRect.intersects(n) );
+					}
+					
+					// If it is not connected, build a new rectangle from scratch, as there is no guarantee it will be connected by the end unless it is done this way.
+					if ( !connected ) { i--; continue; }
+				}
+
+				listOfRectangles.Add (tempRect);
 			}
 		}
 

@@ -1,4 +1,4 @@
-﻿
+
 using UnityEngine;
 using System.Collections.Generic;
 using MyNameSpace;
@@ -11,7 +11,7 @@ public class Generator : MonoBehaviour {
 	// Use this for initialization
 	void Start() {
 
-		Map p = new Map (1000, 1000, 102);
+		Map p = new Map (1000, 1000, seed);
 		var rng = new System.Random (seed);
 
 		p.AddRoom (Room_Type.SpawnRoom, 0);
@@ -38,11 +38,12 @@ public class Generator : MonoBehaviour {
 				switch (p.MapGrid[i,j]) {
 				case 0:
 				case 2:
-					//d.place (i,0,j, h);
-					d.Place (new Position(i,0,j), brushes[rng.Next(brushes.Count)]);
+				//case 98:
+						//d.place (i,0,j, h);
+					d.Place (new Position(j,0,i), brushes[rng.Next(brushes.Count)]);
 					if (rng.Next(20) == 0)
 						{
-							d.Place (new Position(i,0,j), hallwayTorches);
+							d.Place (new Position(j,0,i), hallwayTorches);
 						}
 					break;
 				}
