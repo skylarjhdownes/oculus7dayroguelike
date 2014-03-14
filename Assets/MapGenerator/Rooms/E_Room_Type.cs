@@ -5,7 +5,8 @@ namespace MyNameSpace
 	{
 		SpawnRoom,
 		SmallRoom,
-		MediumRoom
+		MediumRoom,
+		LargeRoom
 	}
 }
 
