@@ -1,13 +1,16 @@
 ﻿
 using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 using MyNameSpace;
 
-public class NEWtestScriptWithMapGen : MonoBehaviour {
-	private dungeonMap d;
+namespace LevelGen {
+public class Generator : MonoBehaviour {
+	private Dungeon d;
+	public int seed = 10;
 
 	// Use this for initialization
 	void Start() {
+		var rng = new System.Random (seed);
 		Map p = new Map (1000, 1000, 101);
 
 		p.AddRoom (Room_Type.SpawnRoom, 0);
@@ -20,15 +23,20 @@ public class NEWtestScriptWithMapGen : MonoBehaviour {
 
 		p.buildMap ();
 
-		d = new dungeonMap (p.width, 1, p.height);
-		hallwayBrush h = hallwayBrush.prepare (d);
-		terrainRoomBrush g = terrainRoomBrush.prepare (d);
+		d = new Dungeon ();
+		var factory = new RoomBrushFactory ();
+		var brushes = new List<Brush> ();
+		brushes.Add(factory.createRoomBrush (rng));
+		brushes.Add(factory.createRoomBrush (rng));
+		brushes.Add(factory.createRoomBrush (rng));
+		brushes.Add(factory.createRoomBrush (rng));
+
 		for (int i = 0; i < p.width; i++) {
 			for (int j = 0; j < p.height; j++) {
 				switch (p.MapGrid[i,j]) {
 				case 0:
 				case 2:
-					d.place (i,0,j, h);
+					d.Place (new Position(i,0,j), brushes[rng.Next(brushes.Count)]);
 					break;
 				}
 			}
@@ -42,4 +50,5 @@ public class NEWtestScriptWithMapGen : MonoBehaviour {
 	void Update () {
 		
 	}
+}
 }

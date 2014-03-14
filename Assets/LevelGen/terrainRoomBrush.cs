@@ -1,16 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-
-public class terrainRoomBrush : brush {
+/*
+public class terrainRoomBrush : Brush {
 	private GameObject self;
 	public Material wallMaterial;
 	public Material floorMaterial;
 	public Material ceilingMaterial;
-	private dungeonMap map;
+	private Dungeon map;
 	private List<Vector3> connectionPoints = new List<Vector3>();
 
-	public static terrainRoomBrush prepare(dungeonMap map) {
+	public static terrainRoomBrush prepare(Dungeon map) {
 		GameObject levelGen = GameObject.Find ("LevelGeneration");  //Is dumb, should fix
 		terrainRoomBrush terrainRoomObject = levelGen.GetComponent<terrainRoomBrush> ();
 		if (terrainRoomObject == null) {
@@ -115,4 +115,4 @@ public class terrainRoomBrush : brush {
 	void Update () {
 		
 	}
-}
+}*/
