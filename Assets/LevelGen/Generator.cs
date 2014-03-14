@@ -34,6 +34,7 @@ public class Generator : MonoBehaviour {
 		brushes.Add(factory.createRoomBrush (rng));
 		brushes.Add(factory.createRoomBrush (rng));
 		brushes.Add(factory.createRoomBrush (rng));
+		var hallwayTorches = new hallwayTorchesBothWallsBrush();
 
 		for (int i = 0; i < p.width; i++) {
 			for (int j = 0; j < p.height; j++) {
@@ -45,7 +46,14 @@ public class Generator : MonoBehaviour {
 					d.place (i,0,j, h);
 =======
 					d.Place (new Position(i,0,j), brushes[rng.Next(brushes.Count)]);
+<<<<<<< HEAD
 >>>>>>> d7ab315dfffc42d2ec2adf7bf10d720c458294e9:Assets/LevelGen/Generator.cs
+=======
+					if (rng.Next(20) == 0)
+						{
+							d.Place (new Position(i,0,j), hallwayTorches);
+						}
+>>>>>>> d006a2ef2f6b5bba61f9994dd6fbf138cea50bfd
 					break;
 				}
 			}
