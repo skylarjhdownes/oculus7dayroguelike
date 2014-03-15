@@ -1,4 +1,4 @@
-﻿
+
 using UnityEngine;
 using System.Collections.Generic;
 using MyNameSpace;
@@ -25,7 +25,7 @@ public class GeneratorM : MonoBehaviour {
 		p.buildMap ();
 
 		d = new Dungeon ();
-		var hallwayTorches = new hallwayTorchesBothWallsBrush();
+		var hallwayTorches = new torchBrush();
 
 		for (int i = 0; i < 100; i++) {
 			for (int j = 0; j < 100; j++) {

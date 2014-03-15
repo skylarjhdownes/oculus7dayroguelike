@@ -2,15 +2,13 @@
 using System.Collections;
 
 namespace LevelGen {
-	public class hallwayTorchesBothWallsBrush : Brush {
+	public class torchBrush : Brush {
 		private GameObject self;
-		private GameObject clonableTorch;
+		private GameObject clonableTorch = (GameObject)Resources.Load("ourTorch1");
 		private Dungeon map;
 		
-		public hallwayTorchesBothWallsBrush() {
-			clonableTorch = (GameObject)Resources.Load("ourTorch1");
-			Debug.Log (clonableTorch);
-
+		public torchBrush() {
+			 
 		}
 		public void RenderRoom (Position pos, Dungeon map)
 		{
