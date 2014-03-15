@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public abstract class userInteractionScript : MonoBehaviour {
+public  class userInteractionScript : MonoBehaviour {
 	private bool moving = false;
-	private int distanceToMove = 10;
+	private int distanceToMove = 30;
 	public void userInteraction() {
 		moving = true;
 		this.gameObject.transform.renderer.material.SetColor("_Color", Color.cyan);
