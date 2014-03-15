@@ -10,8 +10,9 @@ public class GeneratorM : MonoBehaviour {
 
 	// Use this for initialization
 	void Start() {
-
-		Map p = new Map (1000, 1000, 102);
+		
+		var rng = new System.Random (seed);
+		var p = new Map (rng);
 
 		p.AddRoom (Room_Type.SpawnRoom, 0);
 		p.AddRoom (Room_Type.SmallRoom, 1);
@@ -26,9 +27,9 @@ public class GeneratorM : MonoBehaviour {
 		d = new Dungeon ();
 		var hallwayTorches = new hallwayTorchesBothWallsBrush();
 
-		for (int i = 0; i < p.width; i++) {
-			for (int j = 0; j < p.height; j++) {
-				switch (p.MapGrid[i,j]) {
+		for (int i = 0; i < 100; i++) {
+			for (int j = 0; j < 100; j++) {
+				switch (p[i,j]) {
 				case 0:
 				case 2:
 					//d.place (i,0,j, h);

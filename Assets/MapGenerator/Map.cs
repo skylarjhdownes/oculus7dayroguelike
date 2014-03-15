@@ -1,48 +1,48 @@
 using System;
 using System.Collections.Generic;
 using System.Collections;
+using LevelGen;
 
 namespace MyNameSpace {
 	
 	public class Map {
-
-		public short[,] MapGrid;
-		public int height;
-		public int width;
-		public List<Room> Rooms;
-		Random r;
+		private readonly Dictionary<Position, short> mapCollisionGrid = new Dictionary<Position, short>(new FlatPositionCompare());
+		public readonly List<Room> Rooms = new List<Room>();
+		Random rng;
 		
-		public Map(int x,int y, int seed) {
-			MapGrid = new short[x,y];
-			height = y;
-			width = x;
-			r = new Random(seed);
-			Rooms = new List<Room>();
-			
-			for ( int i = 0; i<x; i++ ) {
-				for ( int j = 0; j<y; j++ ) {
-					MapGrid[i,j] = 99;
-				}
-			}
+		public Map(Random rng) {
+			this.rng = rng;
 		}
+
+		// The Map contains a collision grid, which allows you to check in 2d what things are overlapping with what other things
+		public short this[int x, int z] {
+			get {
+				var target = new Position (x, z);
+				if (mapCollisionGrid.ContainsKey(target))
+					return mapCollisionGrid [target];
+				else return 99;
+			}
+			set { mapCollisionGrid [new Position (x, z)] = value; }
+		}
+
 
 		public void AddRoom(Room_Type t, int l) {
 			Room rm = null;
 			switch (t) {
 			case Room_Type.SpawnRoom:
-				rm = new SpawnRoom(r);
+				rm = new SpawnRoom(rng);
 				break;
 				
 			case Room_Type.SmallRoom:
-				rm = new SmallRoom(r);
+				rm = new SmallRoom(rng);
 				break;
 				
 			case Room_Type.MediumRoom:
-				rm = new MediumRoom(r);
+				rm = new MediumRoom(rng);
 				break;
 
 			case Room_Type.LargeRoom:
-				rm = new LargeRoom(r);
+				rm = new LargeRoom(rng);
 				break;
 			}
 
@@ -107,11 +107,11 @@ namespace MyNameSpace {
 					/* Room Placement -- METHOD #2 */
 					// First, select a room to link this room to from the previous tier.
 					if ( prevTier != null ) {
-						myLinkedRoom = prevTier[r.Next(prevTier.Count)];
+						myLinkedRoom = prevTier[rng.Next(prevTier.Count)];
 					}
 					else {
 						// If there is no previous tier, then this must be the first room.  Draw it in the center of the map.
-						current = new Point(width/2,height/2);
+						current = new Point(0, 0);
 						found = true;
 						break;
 					}
@@ -127,7 +127,7 @@ namespace MyNameSpace {
 					found = true;
 					for ( int i = current.x; i <= current.x+n.getMaxWidth()+2; i++ ) { 
 						for ( int j = current.y; j <= current.y+n.getMaxLength()+2; j++ ) { 
-							if ( MapGrid[i,j] < 99 ) found = false;
+							if ( this[i,j] < 99 ) found = false;
 						}
 					}
 
@@ -140,7 +140,7 @@ namespace MyNameSpace {
 				n.ActualLocation = current;
 				for ( int i = current.x; i <= current.x+n.getMaxWidth()+2; i++ ) { 
 					for ( int j = current.y; j <= current.y+n.getMaxLength()+2; j++ ) { 
-						MapGrid[i,j] = 98;
+						this[i,j] = 98;
 					}
 				}
 
@@ -149,7 +149,7 @@ namespace MyNameSpace {
 				foreach ( Rect rc in n.listOfRectangles ) {
 					for ( int i = current.x+rc.startX; i <= current.x+rc.finX; i++ ) 
 						for ( int j = current.y+rc.startY; j <= current.y+rc.finY; j++ ) 
-							MapGrid[i+1,j+1] = 0;
+							this[i+1,j+1] = 0;
 				}
 
 				// Next, connect the current room to a room from the previous tier (Which is already chosen).
@@ -188,7 +188,7 @@ namespace MyNameSpace {
 
 			//UnityEngine.Debug.Log("Start: "+start.x+","+start.y);
 
-			int randomPoint = r.Next (radius * 4);
+			int randomPoint = rng.Next (radius * 4);
 
 			int rLine = randomPoint / radius;
 			int rPos = randomPoint % radius;
@@ -248,7 +248,7 @@ namespace MyNameSpace {
 			reEnteredRoom = false;
 			if ( delX == 1 ) {
 				for ( int i = stX; i <= cX; i += delX ) {
-					if ( MapGrid[i,cY] == 99 ) { 
+					if ( this[i,cY] == 99 ) { 
 						if ( reEnteredRoom ) emptyCheck = false;
 						stillInRoom = false; 
 					}
@@ -260,7 +260,7 @@ namespace MyNameSpace {
 			}
 			else {
 				for ( int i = stX; i >= cX; i += delX ) {
-					if ( MapGrid[i,cY] == 99 ) { 
+					if ( this[i,cY] == 99 ) { 
 						if ( reEnteredRoom ) emptyCheck = false;
 						stillInRoom = false; 
 					}
@@ -275,7 +275,7 @@ namespace MyNameSpace {
 			reEnteredRoom = false;
 			if ( delY == 1 ) {
 				for ( int i = stY; i <= cY; i += delY ) {
-					if ( MapGrid[cX,i] == 99 ) { 
+					if ( this[cX,i] == 99 ) { 
 						if ( reEnteredRoom ) emptyCheck = false;
 						stillInRoom = false; 
 					}
@@ -287,7 +287,7 @@ namespace MyNameSpace {
 			}
 			else {
 				for ( int i = stY; i >= cY; i += delY ) {
-					if ( MapGrid[cX,i] == 99 ) { 
+					if ( this[cX,i] == 99 ) { 
 						if ( reEnteredRoom ) emptyCheck = false;
 						stillInRoom = false; 
 					}
@@ -301,10 +301,10 @@ namespace MyNameSpace {
 			if ( emptyCheck ) {
 				//UnityEngine.Debug.Log("EC1 -- > stX: "+stX+"   stY: "+stY+"   delX: "+delX+"   cX: "+cX+"   cY: "+cY+"   delY: "+delY);
 				// This path is clear, so build it!
-				if ( delX == 1 ) { for ( int i = stX; i <= cX; i += delX ) if ( MapGrid[i,cY] >= 0 ) MapGrid[i,cY] = 2; }
-				else {			   for ( int i = stX; i >= cX; i += delX ) if ( MapGrid[i,cY] >= 0 ) MapGrid[i,cY] = 2; }
-				if ( delY == 1 ) { for ( int i = stY; i <= cY; i += delY ) if ( MapGrid[cX,i] >= 0 ) MapGrid[cX,i] = 2; }
-				else { 			   for ( int i = stY; i >= cY; i += delY ) if ( MapGrid[cX,i] >= 0 ) MapGrid[cX,i] = 2; }
+				if ( delX == 1 ) { for ( int i = stX; i <= cX; i += delX ) if ( this[i,cY] >= 0 ) this[i,cY] = 2; }
+				else {			   for ( int i = stX; i >= cX; i += delX ) if ( this[i,cY] >= 0 ) this[i,cY] = 2; }
+				if ( delY == 1 ) { for ( int i = stY; i <= cY; i += delY ) if ( this[cX,i] >= 0 ) this[cX,i] = 2; }
+				else { 			   for ( int i = stY; i >= cY; i += delY ) if ( this[cX,i] >= 0 ) this[cX,i] = 2; }
 			}
 			else {
 				// Try Cross-point #2
@@ -324,7 +324,7 @@ namespace MyNameSpace {
 				reEnteredRoom = false;
 				if ( delX == 1 ) {
 					for ( int i = stX; i <= cX; i += delX ) {
-						if ( MapGrid[i,cY] == 99 ) { 
+						if ( this[i,cY] == 99 ) { 
 							if ( reEnteredRoom ) emptyCheck = false;
 							stillInRoom = false; 
 						}
@@ -336,7 +336,7 @@ namespace MyNameSpace {
 				}
 				else {
 					for ( int i = stX; i >= cX; i += delX ) {
-						if ( MapGrid[i,cY] == 99 ) { 
+						if ( this[i,cY] == 99 ) { 
 							if ( reEnteredRoom ) emptyCheck = false;
 							stillInRoom = false; 
 						}
@@ -351,7 +351,7 @@ namespace MyNameSpace {
 				reEnteredRoom = false;
 				if ( delY == 1 ) {
 					for ( int i = stY; i <= cY; i += delY ) {
-						if ( MapGrid[cX,i] == 99 ) { 
+						if ( this[cX,i] == 99 ) { 
 							if ( reEnteredRoom ) emptyCheck = false;
 							stillInRoom = false; 
 						}
@@ -363,7 +363,7 @@ namespace MyNameSpace {
 				}
 				else {
 					for ( int i = stY; i >= cY; i += delY ) {
-						if ( MapGrid[cX,i] == 99 ) { 
+						if ( this[cX,i] == 99 ) { 
 							if ( reEnteredRoom ) emptyCheck = false;
 							stillInRoom = false; 
 						}
@@ -377,10 +377,10 @@ namespace MyNameSpace {
 				if ( emptyCheck ) {
 					//UnityEngine.Debug.Log("EC2 -- > stX: "+stX+"   stY: "+stY+"   delX: "+delX+"   cX: "+cX+"   cY: "+cY+"   delY: "+delY);
 					// This path is clear, so build it!
-					if ( delX == 1 ) { for ( int i = stX; i <= cX; i += delX ) if ( MapGrid[i,cY] >= 0 ) MapGrid[i,cY] = 2; }
-					else {			   for ( int i = stX; i >= cX; i += delX ) if ( MapGrid[i,cY] >= 0 ) MapGrid[i,cY] = 2; }
-					if ( delY == 1 ) { for ( int i = stY; i <= cY; i += delY ) if ( MapGrid[cX,i] >= 0 ) MapGrid[cX,i] = 2; }
-					else { 			   for ( int i = stY; i >= cY; i += delY ) if ( MapGrid[cX,i] >= 0 ) MapGrid[cX,i] = 2; }
+					if ( delX == 1 ) { for ( int i = stX; i <= cX; i += delX ) if ( this[i,cY] >= 0 ) this[i,cY] = 2; }
+					else {			   for ( int i = stX; i >= cX; i += delX ) if ( this[i,cY] >= 0 ) this[i,cY] = 2; }
+					if ( delY == 1 ) { for ( int i = stY; i <= cY; i += delY ) if ( this[cX,i] >= 0 ) this[cX,i] = 2; }
+					else { 			   for ( int i = stY; i >= cY; i += delY ) if ( this[cX,i] >= 0 ) this[cX,i] = 2; }
 				}
 				else {
 					UnityEngine.Debug.Log("Err -- >"+
