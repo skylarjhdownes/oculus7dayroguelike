@@ -31,6 +31,9 @@ namespace LevelGen {
 				torch.transform.Rotate(0,270,0);
 				torch.transform.position = map.Scaled(pos.Vector3 + new Vector3 (0, 0, 0.5f));
 			}
+			else {
+				Object.Destroy(torch.gameObject);
+			}
 		}
 	}
 }
