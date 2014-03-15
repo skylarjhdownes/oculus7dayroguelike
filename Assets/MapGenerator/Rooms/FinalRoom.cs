@@ -5,7 +5,12 @@ namespace MyNameSpace
 {
 	public class FinalRoom : Room
 	{
-		public FinalRoom (Random r_in) : base (15, 15, 1, 1, r_in) { }
+		private LevelGen.Brush endBrush;
+
+		public FinalRoom (Random r_in, int level) : base (15, 15, 1, 1, r_in) {
+			this.level = level;
+			endBrush = new LevelGen.EndBrush ();
+		}
 
 		protected override void build() {
 			listOfRectangles.Add (new Rect (2,0,4,2));
@@ -31,12 +36,17 @@ namespace MyNameSpace
 		{
 			base.drawRoom (d_in, b_in, m_in);
 
-			for ( int i = -1; i > -6; i-- ) {
+			for ( int i = -1; i > -8; i-- ) {
 				for ( int x = 2; x <= 4; x++ ) for ( int y = 0; y <= 2; y++ ) d_in.Place (new LevelGen.Position(ActualLocation.x+x+1,i,ActualLocation.y+y+1),b_in);
 				for ( int x = 12; x <= 14; x++ ) for ( int y = 2; y <= 4; y++ ) d_in.Place (new LevelGen.Position(ActualLocation.x+x+1,i,ActualLocation.y+y+1),b_in);
 				for ( int x = 10; x <= 12; x++ ) for ( int y = 12; y <= 14; y++ ) d_in.Place (new LevelGen.Position(ActualLocation.x+x+1,i,ActualLocation.y+y+1),b_in);
 				for ( int x = 0; x <= 2; x++ ) for ( int y = 10; y <= 12; y++ ) d_in.Place (new LevelGen.Position(ActualLocation.x+x+1,i,ActualLocation.y+y+1),b_in);
 			}
+			
+			d_in.Place(new LevelGen.Position(ActualLocation.x+4,-6,ActualLocation.y+2), endBrush);
+			d_in.Place(new LevelGen.Position(ActualLocation.x+14,-6,ActualLocation.y+4), endBrush);
+			d_in.Place(new LevelGen.Position(ActualLocation.x+12,-6,ActualLocation.y+14), endBrush);
+			d_in.Place(new LevelGen.Position(ActualLocation.x+2,-6,ActualLocation.y+12), endBrush);
 		}
 	}
 }

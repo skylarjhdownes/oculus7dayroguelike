@@ -19,7 +19,7 @@ namespace MyNameSpace {
 			this.target = target;
 			this.brushes = new RoomBrushFactory ();
 			this.hallBrush = brushes.createRoomBrush (rng);
-			this.torchBrush = new LevelGen.torchBrush ();
+			this.torchBrush = new LevelGen.TorchBrush ();
 			this.Rooms = rooms;
 			UnityEngine.Debug.Log (Rooms);
 		}
