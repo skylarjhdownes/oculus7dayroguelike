@@ -13,6 +13,7 @@ namespace LevelGen {
 
 		// Use this for initialization
 		void Start() {
+			RenderSettings.ambientLight = Color.black;
 			rng = new System.Random (seed);
 
 			// level 0
@@ -36,8 +37,7 @@ namespace LevelGen {
 			d = new Dungeon ();
 
 			var p = new Map (d, rng, levels[level]);
-			
-			
+
 			p.buildMap ();
 			
 			d.RenderAll ();
