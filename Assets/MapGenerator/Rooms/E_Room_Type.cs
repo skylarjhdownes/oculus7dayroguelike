@@ -6,7 +6,8 @@ namespace MyNameSpace
 		SpawnRoom,
 		SmallRoom,
 		MediumRoom,
-		LargeRoom
+		LargeRoom,
+		FinalRoom
 	}
 }
 

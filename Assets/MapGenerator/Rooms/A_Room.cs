@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using LevelGen;
 
 namespace MyNameSpace
 {
@@ -31,6 +32,21 @@ namespace MyNameSpace
 
 		public void setLevel(int l) {
 			level = l;
+		}
+
+		public virtual void drawRoom(Dungeon d_in, Brush b_in, Map m_in) {
+			foreach ( Rect rc in listOfRectangles ) {
+				for ( int i = ActualLocation.x+rc.startX; i <= ActualLocation.x+rc.finX; i++ ) 
+					for ( int j = ActualLocation.y+rc.startY; j <= ActualLocation.y+rc.finY; j++ )
+					if (m_in[i+1,j+1] != 0) {
+						m_in[i+1,j+1] = 0;
+						for (int k = 0; k < Height; k++) {
+							d_in.Place(new Position(i+1,k,j+1), b_in);
+						}
+					}
+				
+			}
+
 		}
 
 		protected virtual void build() {

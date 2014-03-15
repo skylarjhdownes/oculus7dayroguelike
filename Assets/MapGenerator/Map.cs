@@ -52,6 +52,10 @@ namespace MyNameSpace {
 			case Room_Type.LargeRoom:
 				rm = new LargeRoom(rng);
 				break;
+
+			case Room_Type.FinalRoom:
+				rm = new FinalRoom(rng);
+				break;
 			}
 
 			rm.setLevel (l);
@@ -155,17 +159,7 @@ namespace MyNameSpace {
 
 				// Next, draw all of the rectangles in the room.
 				var brush = brushes.createRoomBrush(rng);
-				foreach ( Rect rc in n.listOfRectangles ) {
-					for ( int i = current.x+rc.startX; i <= current.x+rc.finX; i++ ) 
-						for ( int j = current.y+rc.startY; j <= current.y+rc.finY; j++ )
-							if (this [i+1,j+1] != 0) {
-								this[i+1,j+1] = 0;
-								for (int k = 0; k < n.Height; k++) {
-									target.Place(new Position(i+1,k,j+1), brush);
-								}
-							}
-							
-				}
+				n.drawRoom(target,brush,this);
 
 				// Next, connect the current room to a room from the previous tier (Which is already chosen).
 				if ( myLinkedRoom != null ) {
