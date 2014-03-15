@@ -6,13 +6,14 @@ namespace LevelGen {
 		private GameObject self;
 		private GameObject clonableTorch = (GameObject)Resources.Load("ourTorch1");
 		private Dungeon map;
+		GameObject torch;
 		
 		public torchBrush() {
 			 
 		}
 		public void RenderRoom (Position pos, Dungeon map)
 		{
-			var torch = (GameObject)Object.Instantiate(clonableTorch);
+			torch = (GameObject)Object.Instantiate(clonableTorch);
 			// walls
 			if (!map.HasContent(pos + new Position (-1, 0, 0))) {
 				torch.transform.Rotate(0,180,0);
