@@ -13,14 +13,33 @@ public class Generator : MonoBehaviour {
 
 		var rng = new System.Random (seed);
 		var p = new Map (rng);
-
-		p.AddRoom (Room_Type.SpawnRoom, 0);
-		p.AddRoom (Room_Type.SmallRoom, 1);
-		p.AddRoom (Room_Type.LargeRoom, 2);
-		p.AddRoom (Room_Type.SmallRoom, 3);
-		p.AddRoom (Room_Type.SmallRoom, 3);
-		p.AddRoom (Room_Type.MediumRoom, 3);
-		p.AddRoom (Room_Type.SmallRoom, 4);
+			
+			p.AddRoom (Room_Type.SpawnRoom, 0);
+			p.AddRoom (Room_Type.SmallRoom, 1);
+			p.AddRoom (Room_Type.LargeRoom, 2);
+			p.AddRoom (Room_Type.SmallRoom, 2);
+			p.AddRoom (Room_Type.SmallRoom, 3);
+			p.AddRoom (Room_Type.SmallRoom, 3);
+			p.AddRoom (Room_Type.MediumRoom, 3);
+			p.AddRoom (Room_Type.SmallRoom, 4);
+			p.AddRoom (Room_Type.MediumRoom, 4);
+			p.AddRoom (Room_Type.SmallRoom, 4);
+			p.AddRoom (Room_Type.MediumRoom, 4);
+			p.AddRoom (Room_Type.SmallRoom, 4);
+			p.AddRoom (Room_Type.MediumRoom, 4);
+			p.AddRoom (Room_Type.SmallRoom, 4);
+			p.AddRoom (Room_Type.MediumRoom, 4);
+			p.AddRoom (Room_Type.LargeRoom, 5);
+			p.AddRoom (Room_Type.LargeRoom, 5);
+			p.AddRoom (Room_Type.LargeRoom, 5);
+			p.AddRoom (Room_Type.SmallRoom, 6);
+			p.AddRoom (Room_Type.SmallRoom, 6);
+			p.AddRoom (Room_Type.SmallRoom, 6);
+			p.AddRoom (Room_Type.SmallRoom, 6);
+			p.AddRoom (Room_Type.SmallRoom, 6);
+			p.AddRoom (Room_Type.SmallRoom, 6);
+			p.AddRoom (Room_Type.SmallRoom, 6);
+			p.AddRoom (Room_Type.SmallRoom, 6);
 
 		p.buildMap ();
 
