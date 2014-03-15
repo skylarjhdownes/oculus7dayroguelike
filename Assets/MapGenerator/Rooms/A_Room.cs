@@ -5,7 +5,7 @@ namespace MyNameSpace
 {
 	public abstract class Room : IComparable<Room>
 	{
-		int height;
+		public int Height;
 		int maxWidth;
 		int maxLength;
 		int numRectangles;
@@ -15,7 +15,7 @@ namespace MyNameSpace
 		Random r;
 
 		public Room(int l, int w, int h, int r, Random r_in) {
-			height = h;
+			Height = h;
 			maxWidth = w;
 			maxLength = l;
 			numRectangles = r;
@@ -61,7 +61,6 @@ namespace MyNameSpace
 
 		public int getMaxWidth() { return maxWidth; }
 		public int getMaxLength() { return maxLength; }
-
 	}
 }
 

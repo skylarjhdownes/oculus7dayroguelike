@@ -8,10 +8,18 @@ namespace MyNameSpace {
 	public class Map {
 		private readonly Dictionary<Position, short> mapCollisionGrid = new Dictionary<Position, short>(new FlatPositionCompare());
 		public readonly List<Room> Rooms = new List<Room>();
-		Random rng;
+		private Random rng;
+		private RoomBrushFactory brushes;
+		private Dungeon target;
+		private Brush hallBrush;
+		private Brush torchBrush;
 		
-		public Map(Random rng) {
+		public Map(Dungeon target, Random rng) {
 			this.rng = rng;
+			this.target = target;
+			this.brushes = new RoomBrushFactory ();
+			this.hallBrush = brushes.createRoomBrush (rng);
+			this.torchBrush = new LevelGen.torchBrush ();
 		}
 
 		// The Map contains a collision grid, which allows you to check in 2d what things are overlapping with what other things
@@ -146,10 +154,17 @@ namespace MyNameSpace {
 
 
 				// Next, draw all of the rectangles in the room.
+				var brush = brushes.createRoomBrush(rng);
 				foreach ( Rect rc in n.listOfRectangles ) {
 					for ( int i = current.x+rc.startX; i <= current.x+rc.finX; i++ ) 
-						for ( int j = current.y+rc.startY; j <= current.y+rc.finY; j++ ) 
-							this[i+1,j+1] = 0;
+						for ( int j = current.y+rc.startY; j <= current.y+rc.finY; j++ )
+							if (this [i+1,j+1] != 0) {
+								this[i+1,j+1] = 0;
+								for (int k = 0; k < n.Height; k++) {
+									target.Place(new Position(i+1,k,j+1), brush);
+								}
+							}
+							
 				}
 
 				// Next, connect the current room to a room from the previous tier (Which is already chosen).
@@ -301,10 +316,10 @@ namespace MyNameSpace {
 			if ( emptyCheck ) {
 				//UnityEngine.Debug.Log("EC1 -- > stX: "+stX+"   stY: "+stY+"   delX: "+delX+"   cX: "+cX+"   cY: "+cY+"   delY: "+delY);
 				// This path is clear, so build it!
-				if ( delX == 1 ) { for ( int i = stX; i <= cX; i += delX ) if ( this[i,cY] >= 0 ) this[i,cY] = 2; }
-				else {			   for ( int i = stX; i >= cX; i += delX ) if ( this[i,cY] >= 0 ) this[i,cY] = 2; }
-				if ( delY == 1 ) { for ( int i = stY; i <= cY; i += delY ) if ( this[cX,i] >= 0 ) this[cX,i] = 2; }
-				else { 			   for ( int i = stY; i >= cY; i += delY ) if ( this[cX,i] >= 0 ) this[cX,i] = 2; }
+				if ( delX == 1 ) { for ( int i = stX; i <= cX; i += delX ) if ( this[i,cY] >= 98 ) placeHallAt(i,cY); }
+				else {			   for ( int i = stX; i >= cX; i += delX ) if ( this[i,cY] >= 98 ) placeHallAt(i,cY); }
+				if ( delY == 1 ) { for ( int i = stY; i <= cY; i += delY ) if ( this[cX,i] >= 98 ) placeHallAt(cX,i); }
+				else { 			   for ( int i = stY; i >= cY; i += delY ) if ( this[cX,i] >= 98 ) placeHallAt(cX,i); }
 			}
 			else {
 				// Try Cross-point #2
@@ -377,10 +392,10 @@ namespace MyNameSpace {
 				if ( emptyCheck ) {
 					//UnityEngine.Debug.Log("EC2 -- > stX: "+stX+"   stY: "+stY+"   delX: "+delX+"   cX: "+cX+"   cY: "+cY+"   delY: "+delY);
 					// This path is clear, so build it!
-					if ( delX == 1 ) { for ( int i = stX; i <= cX; i += delX ) if ( this[i,cY] >= 0 ) this[i,cY] = 2; }
-					else {			   for ( int i = stX; i >= cX; i += delX ) if ( this[i,cY] >= 0 ) this[i,cY] = 2; }
-					if ( delY == 1 ) { for ( int i = stY; i <= cY; i += delY ) if ( this[cX,i] >= 0 ) this[cX,i] = 2; }
-					else { 			   for ( int i = stY; i >= cY; i += delY ) if ( this[cX,i] >= 0 ) this[cX,i] = 2; }
+					if ( delX == 1 ) { for ( int i = stX; i <= cX; i += delX ) if ( this[i,cY] >= 98 ) placeHallAt(i,cY); }
+					else {			   for ( int i = stX; i >= cX; i += delX ) if ( this[i,cY] >= 98 ) placeHallAt(i,cY); }
+					if ( delY == 1 ) { for ( int i = stY; i <= cY; i += delY ) if ( this[cX,i] >= 98 ) placeHallAt(cX,i); }
+					else { 			   for ( int i = stY; i >= cY; i += delY ) if ( this[cX,i] >= 98 ) placeHallAt(cX,i); }
 				}
 				else {
 					UnityEngine.Debug.Log("Err -- >"+
@@ -392,6 +407,13 @@ namespace MyNameSpace {
 			
 			} // End Else -> Cross-Point #2
 
+		}
+
+		private void placeHallAt(int x, int z) {
+			this [x, z] = 2;
+			target.Place (new Position (x, 0, z), hallBrush);
+			if (rng.Next (10) == 0)
+					target.Place (new Position (x, 0, z), torchBrush);
 		}
 
 		

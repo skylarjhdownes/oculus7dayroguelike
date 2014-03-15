@@ -12,7 +12,9 @@ public class Generator : MonoBehaviour {
 	void Start() {
 
 		var rng = new System.Random (seed);
-		var p = new Map (rng);
+			
+		d = new Dungeon ();
+		var p = new Map (d, rng);
 			
 			p.AddRoom (Room_Type.SpawnRoom, 0);
 			p.AddRoom (Room_Type.SmallRoom, 1);
@@ -42,32 +44,6 @@ public class Generator : MonoBehaviour {
 			p.AddRoom (Room_Type.SmallRoom, 6);
 
 		p.buildMap ();
-
-		d = new Dungeon ();
-		var factory = new RoomBrushFactory ();
-		var brushes = new List<Brush> ();
-		brushes.Add(factory.createRoomBrush (rng));
-		brushes.Add(factory.createRoomBrush (rng));
-		brushes.Add(factory.createRoomBrush (rng));
-		brushes.Add(factory.createRoomBrush (rng));
-		var torches = new torchBrush();
-
-		for (int i = -1000; i < 1000; i++) {
-			for (int j = -1000; j < 1000; j++) {
-				switch (p[i,j]) {
-				case 0:
-				case 2:
-				//case 98:
-						//d.place (i,0,j, h);
-					d.Place (new Position(j,0,i), brushes[rng.Next(brushes.Count)]);
-					if (rng.Next(20) ==1)
-						{
-							d.Place (new Position(j,0,i), torches);
-						}
-					break;
-				}
-			}
-		}
 
 		d.RenderAll ();
 	}

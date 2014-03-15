@@ -5,15 +5,15 @@ namespace LevelGen {
 public class RoomBrushFactory {
 	private readonly List<string> wallMaterialSources = new List<string> 
 	{
-		"Grass", "Cobble pave", "Forest floor"
+		"Cobble pave", "Rock", "Red Brick", "Steel", "Yellow Brick", "Yellow Rock"
 	};
 	private readonly List<string> floorMaterialSources = new List<string> 
 	{
-		"Grass", "Cobble pave", "Forest floor"
+		"Grass", "Forest floor", "Rubble", "Mud"
 	};
 	private readonly List<string> ceilingMaterialSources = new List<string> 
 	{
-		"Grass", "Cobble pave", "Forest floor"
+		"Cobble pave", "Steel", "Bark", "Pine Floor"
 	};
 
 	private readonly List<Material> wallMaterials;
