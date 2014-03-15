@@ -34,6 +34,7 @@ namespace LevelGen {
 		}
 
 		public void DrawLevel() {
+
 			d = new Dungeon ();
 
 			var p = new Map (d, rng, levels[level]);
@@ -41,6 +42,8 @@ namespace LevelGen {
 			p.buildMap ();
 			
 			d.RenderAll ();
+
+			GameObject.FindGameObjectWithTag ("Player").transform.position = d.Scaled(new Vector3(2f, 20f, 2f));
 		}
 
 		// Update is called once per frame
