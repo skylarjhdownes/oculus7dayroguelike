@@ -12,6 +12,10 @@ namespace MyNameSpace
 			endBrush = new LevelGen.EndBrush ();
 		}
 
+		public override Room newInstance(Random r_in, int level) {
+			return new FinalRoom (r_in, level);
+		}
+
 		protected override void build() {
 			listOfRectangles.Add (new Rect (2,0,4,2));
 			listOfRectangles.Add (new Rect (0,1,5,1));

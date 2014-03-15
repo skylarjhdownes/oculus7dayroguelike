@@ -14,6 +14,11 @@ namespace MyNameSpace
 			listOfRectangles.Add (new Rect (0, 0, 2, 2));
 
 		}
+
+		public override Room newInstance(Random r_in, int level) {
+			return new SpawnRoom (r_in);
+		}
+
 	}
 }
 

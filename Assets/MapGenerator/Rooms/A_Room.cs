@@ -25,9 +25,13 @@ namespace MyNameSpace
 			build ();
 		}
 
+		public abstract Room newInstance (Random r_in, int level);
+
 		public int CompareTo(Room c_in) {
-			if ( level > c_in.level ) return 1;
-			else return -1;
+			//if ( level > c_in.level ) return 1;
+			//else return -1;
+
+			return this.level.CompareTo (c_in.level);
 		}
 
 		public void setLevel(int l) {
