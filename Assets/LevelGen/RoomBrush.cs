@@ -65,8 +65,6 @@ public class RoomBrush : Brush {
 	public void RenderRoom(Position pos, Dungeon map) {
 		GameObject wall;
 
-		Debug.Log (map.HasContent(pos + new Position (0, -1, 0)));
-
 		// floor
 		if (!map.HasContent(pos + new Position (0, -1, 0))) {
 			wall = GameObject.CreatePrimitive (PrimitiveType.Quad);

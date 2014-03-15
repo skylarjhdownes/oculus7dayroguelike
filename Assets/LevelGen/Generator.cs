@@ -11,8 +11,8 @@ public class Generator : MonoBehaviour {
 	// Use this for initialization
 	void Start() {
 
-		Map p = new Map (1000, 1000, seed);
 		var rng = new System.Random (seed);
+		var p = new Map (rng);
 
 		p.AddRoom (Room_Type.SpawnRoom, 0);
 		p.AddRoom (Room_Type.SmallRoom, 1);
@@ -33,9 +33,9 @@ public class Generator : MonoBehaviour {
 		brushes.Add(factory.createRoomBrush (rng));
 		var hallwayTorches = new hallwayTorchesBothWallsBrush();
 
-		for (int i = 0; i < p.width; i++) {
-			for (int j = 0; j < p.height; j++) {
-				switch (p.MapGrid[i,j]) {
+		for (int i = -1000; i < 1000; i++) {
+			for (int j = -1000; j < 1000; j++) {
+				switch (p[i,j]) {
 				case 0:
 				case 2:
 				//case 98:
