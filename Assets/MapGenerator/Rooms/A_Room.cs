@@ -35,6 +35,7 @@ namespace MyNameSpace
 		}
 
 		public virtual void drawRoom(Dungeon d_in, Brush b_in, Map m_in) {
+			Brush light = new ChandelierBrush ();
 			foreach ( Rect rc in listOfRectangles ) {
 				for ( int i = ActualLocation.x+rc.startX; i <= ActualLocation.x+rc.finX; i++ ) 
 					for ( int j = ActualLocation.y+rc.startY; j <= ActualLocation.y+rc.finY; j++ )
@@ -43,6 +44,7 @@ namespace MyNameSpace
 						for (int k = 0; k < Height; k++) {
 							d_in.Place(new Position(i+1,k,j+1), b_in);
 						}
+						d_in.Place (new Position(i+1, Height-1, j+1), light);
 					}
 				
 			}

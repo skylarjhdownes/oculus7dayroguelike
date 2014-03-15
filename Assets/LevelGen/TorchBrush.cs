@@ -2,13 +2,13 @@
 using System.Collections;
 
 namespace LevelGen {
-	public class torchBrush : Brush {
+	public class TorchBrush : Brush {
 		private GameObject self;
 		private GameObject clonableTorch = (GameObject)Resources.Load("ourTorch1");
 		private Dungeon map;
 		GameObject torch;
 		
-		public torchBrush() {
+		public TorchBrush() {
 			 
 		}
 		public void Render (Position pos, Dungeon map)
