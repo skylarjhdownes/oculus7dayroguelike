@@ -5,7 +5,9 @@ namespace MyNameSpace
 {
 	public class LargeRoom : Room
 	{
-		public LargeRoom (Random r_in) : base (24, 24, 2, 8, r_in) { }
+		public LargeRoom (Random r_in, int level) : base (24, 24, 2, 8, r_in) {
+			this.level = level;
+		}
 	}
 }
 

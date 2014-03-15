@@ -5,7 +5,9 @@ namespace MyNameSpace
 {
 	public class SpawnRoom : Room
 	{
-		public SpawnRoom (Random r_in) : base (3, 3, 1, 1, r_in) { }
+		public SpawnRoom (Random r_in) : base (3, 3, 10, 1, r_in) {
+			this.level = 0;
+		}
 
 		protected override void build() {
 

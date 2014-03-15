@@ -4,54 +4,48 @@ using System.Collections.Generic;
 using MyNameSpace;
 
 namespace LevelGen {
-public class Generator : MonoBehaviour {
-	private Dungeon d;
-	public int seed = 10;
+	public class Generator : MonoBehaviour {
+		private Dungeon d;
+		public int seed = 10;
+		private System.Random rng;
+		public int level = 0;
+		private List<List<Room>> levels =new List<List<Room>> ();
 
-	// Use this for initialization
-	void Start() {
+		// Use this for initialization
+		void Start() {
+			rng = new System.Random (seed);
 
-		var rng = new System.Random (seed);
+			// level 0
+			levels.Add (new List<Room> {
+						new SpawnRoom(rng),
+						new MediumRoom(rng, 1)
+			});
+			// leve 1
+			levels.Add (new List<Room> {
+						new SpawnRoom(rng),
+						new MediumRoom(rng, 1),
+						new MediumRoom(rng, 2),
+						new MediumRoom(rng, 2),
+						new MediumRoom(rng, 2)
+			});
+
+			DrawLevel ();
+		}
+
+		public void DrawLevel() {
+			d = new Dungeon ();
+
+			var p = new Map (d, rng, levels[level]);
 			
-		d = new Dungeon ();
-		var p = new Map (d, rng);
 			
-			p.AddRoom (Room_Type.SpawnRoom, 0);
-			p.AddRoom (Room_Type.SmallRoom, 1);
-			p.AddRoom (Room_Type.LargeRoom, 2);
-			p.AddRoom (Room_Type.SmallRoom, 2);
-			p.AddRoom (Room_Type.SmallRoom, 3);
-			p.AddRoom (Room_Type.SmallRoom, 3);
-			p.AddRoom (Room_Type.MediumRoom, 3);
-			p.AddRoom (Room_Type.SmallRoom, 4);
-			p.AddRoom (Room_Type.MediumRoom, 4);
-			p.AddRoom (Room_Type.SmallRoom, 4);
-			p.AddRoom (Room_Type.MediumRoom, 4);
-			p.AddRoom (Room_Type.SmallRoom, 4);
-			p.AddRoom (Room_Type.MediumRoom, 4);
-			p.AddRoom (Room_Type.SmallRoom, 4);
-			p.AddRoom (Room_Type.MediumRoom, 4);
-			p.AddRoom (Room_Type.LargeRoom, 5);
-			p.AddRoom (Room_Type.LargeRoom, 5);
-			p.AddRoom (Room_Type.LargeRoom, 5);
-			p.AddRoom (Room_Type.SmallRoom, 6);
-			p.AddRoom (Room_Type.SmallRoom, 6);
-			p.AddRoom (Room_Type.SmallRoom, 6);
-			p.AddRoom (Room_Type.SmallRoom, 6);
-			p.AddRoom (Room_Type.SmallRoom, 6);
-			p.AddRoom (Room_Type.SmallRoom, 6);
-			p.AddRoom (Room_Type.SmallRoom, 6);
-			p.AddRoom (Room_Type.SmallRoom, 6);
+			p.buildMap ();
+			
+			d.RenderAll ();
+		}
 
-		p.buildMap ();
-
-		d.RenderAll ();
+		// Update is called once per frame
+		void Update () {
+			
+		}
 	}
-
-
-	// Update is called once per frame
-	void Update () {
-		
-	}
-}
 }

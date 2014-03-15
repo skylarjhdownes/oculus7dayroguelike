@@ -15,7 +15,7 @@ namespace LevelGen {
 		public void RenderAll() {
 			foreach (var pair in map) {
 				foreach (var brush in pair.Value) {
-					brush.RenderRoom(pair.Key, this);
+					brush.Render(pair.Key, this);
 				}
 			}
 			parent.transform.localScale = Scaled (parent.transform.localScale);

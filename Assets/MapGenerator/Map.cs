@@ -7,19 +7,21 @@ namespace MyNameSpace {
 	
 	public class Map {
 		private readonly Dictionary<Position, short> mapCollisionGrid = new Dictionary<Position, short>(new FlatPositionCompare());
-		public readonly List<Room> Rooms = new List<Room>();
+		public List<Room> Rooms;
 		private Random rng;
 		private RoomBrushFactory brushes;
 		private Dungeon target;
 		private Brush hallBrush;
 		private Brush torchBrush;
 		
-		public Map(Dungeon target, Random rng) {
+		public Map(Dungeon target, Random rng, List<Room> rooms) {
 			this.rng = rng;
 			this.target = target;
 			this.brushes = new RoomBrushFactory ();
 			this.hallBrush = brushes.createRoomBrush (rng);
 			this.torchBrush = new LevelGen.torchBrush ();
+			this.Rooms = rooms;
+			UnityEngine.Debug.Log (Rooms);
 		}
 
 		// The Map contains a collision grid, which allows you to check in 2d what things are overlapping with what other things
@@ -31,32 +33,6 @@ namespace MyNameSpace {
 				else return 99;
 			}
 			set { mapCollisionGrid [new Position (x, z)] = value; }
-		}
-
-
-		public void AddRoom(Room_Type t, int l) {
-			Room rm = null;
-			switch (t) {
-			case Room_Type.SpawnRoom:
-				rm = new SpawnRoom(rng);
-				break;
-				
-			case Room_Type.SmallRoom:
-				rm = new SmallRoom(rng);
-				break;
-				
-			case Room_Type.MediumRoom:
-				rm = new MediumRoom(rng);
-				break;
-
-			case Room_Type.LargeRoom:
-				rm = new LargeRoom(rng);
-				break;
-			}
-
-			rm.setLevel (l);
-
-			Rooms.Add (rm);
 		}
 
 		public void buildMap() {
