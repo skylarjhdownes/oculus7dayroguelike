@@ -15,23 +15,22 @@ namespace LevelGen {
 		public void RenderRoom (Position pos, Dungeon map)
 		{
 			var torch = (GameObject)Object.Instantiate(clonableTorch);
-			map.AddChild(torch);
 			// walls
 			if (!map.HasContent(pos + new Position (-1, 0, 0))) {
 				torch.transform.Rotate(0,180,0);
-				torch.transform.position = pos.Vector3 + new Vector3 (-0.5f, 0, 0);
+				torch.transform.position = map.Scaled(pos.Vector3 + new Vector3 (-0.5f, 0, 0));
 			}
 			if (!map.HasContent(pos + new Position (1, 0, 0))) {
 				torch.transform.Rotate(0,0,0);
-				torch.transform.position = pos.Vector3 + new Vector3 (0.5f, 0, 0);
+				torch.transform.position = map.Scaled(pos.Vector3 + new Vector3 (0.5f, 0, 0));
 			}
 			if (!map.HasContent(pos + new Position (0, 0, -1))) {
 				torch.transform.Rotate(0,270,0);
-				torch.transform.position = pos.Vector3 + new Vector3 (0, 0, -0.5f);
+				torch.transform.position = map.Scaled(pos.Vector3 + new Vector3 (0, 0, -0.5f));
 			}
 			if (!map.HasContent(pos + new Position (0, 0, 1))) {
 				torch.transform.Rotate(0,90,0);
-				torch.transform.position = pos.Vector3 + new Vector3 (0, 0, 0.5f);
+				torch.transform.position = map.Scaled(pos.Vector3 + new Vector3 (0, 0, 0.5f));
 			}
 		}
 	}

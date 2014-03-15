@@ -18,6 +18,7 @@ namespace LevelGen {
 					brush.RenderRoom(pair.Key, this);
 				}
 			}
+			parent.transform.localScale = Scaled (parent.transform.localScale);
 		}
 
 		public void Place(Position position, Brush brush) {
@@ -40,6 +41,11 @@ namespace LevelGen {
 				Object.Destroy (child);
 			children.Clear();
 			Object.Destroy (parent);
+		}
+
+		private Vector3 scale = new Vector3 (2, 3, 2);
+		public Vector3 Scaled(Vector3 un) {
+			return new Vector3 (un.x * scale.x, un.y * scale.y, un.z * scale.z);
 		}
 	}
 }
