@@ -12,7 +12,7 @@ namespace LevelGen {
 		public endDoorPortalBrush() {
 			
 		}
-		public void RenderRoom (Position pos, Dungeon map)
+		public void Render (Position pos, Dungeon map)
 		{
 			GameObject doorPortal = (GameObject)Object.Instantiate(clonableRoomPortal);
 			// walls

@@ -11,7 +11,7 @@ namespace LevelGen {
 		public torchBrush() {
 			 
 		}
-		public void RenderRoom (Position pos, Dungeon map)
+		public void Render (Position pos, Dungeon map)
 		{
 			torch = (GameObject)Object.Instantiate(clonableTorch);
 			// walls

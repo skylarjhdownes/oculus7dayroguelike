@@ -62,7 +62,7 @@ public class RoomBrush : Brush {
 		this.ceilingMaterial = ceilingMaterial;
 	}
 	
-	public void RenderRoom(Position pos, Dungeon map) {
+	public void Render(Position pos, Dungeon map) {
 		GameObject wall;
 
 		// floor
