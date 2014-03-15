@@ -4,11 +4,14 @@ using System.Collections;
 public  class userInteractionScript : MonoBehaviour {
 	private bool moving = false;
 	private int distanceToMove = 30;
+	//var crashSound = AudioClip;
+
 	public void userInteraction() {
 		moving = true;
-		this.gameObject.transform.renderer.material.SetColor("_Color", Color.cyan);
+		//this.gameObject.transform.renderer.material.SetColor("_Color", Color.cyan);
 		
 	}
+
 	// Use this for initialization
 	void Start () {
 	}
