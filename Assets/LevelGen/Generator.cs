@@ -10,7 +10,7 @@ public class Generator : MonoBehaviour {
 
 	// Use this for initialization
 	void Start() {
-
+		RenderSettings.ambientLight = Color.black;
 		var rng = new System.Random (seed);
 			
 		d = new Dungeon ();
